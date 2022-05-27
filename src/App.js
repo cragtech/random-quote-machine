@@ -8,6 +8,8 @@ function App() {
   const [error, setError] = useState('');
   const [status, setStatus] = useState('');
   const [statusText, setStatusText] = useState('');
+  const [bgColor, setBgColor] = useState('');
+  const [qbInsetColor, setQbInsetColor] = useState('');
 
   const getRandomQuoteData = () => {
     fetch('https://api.quotable.io/random')
@@ -36,22 +38,61 @@ function App() {
         setAuthor(statusText);
       })
   }
+
+  const getRandomColorScheme = () => {
+    const colorArr = [
+      ['#F984EF', '#CA2C91'],
+      ['#C636FF', '#720B97'],
+      ['#177BD2', '#000073'],
+      ['#A62C2B', '#FF0000'],
+      ['#B8D53D', '#0D5B11'],
+      ['#FF9D00', '#FF5E01'],
+      ['#FEFE33', '#FFBB00'],
+      ['#A9FBA3', '#48BF92'],
+    ];
+
+    let randomNum = Math.floor(Math.random() * colorArr.length);
+    setBgColor(colorArr[randomNum][0]);
+    setQbInsetColor(colorArr[randomNum][1])
+  }
+
   useEffect(()=> {
     getRandomQuoteData();
+    getRandomColorScheme();
   }, [])
 
   return (
-    <div className="App">
-      <div id="quote-box">
-        <div id="text">{quote}</div>
-        <div id="author">{author}</div>
-        <button
-          id="new-quote"
-          onClick={() => getRandomQuoteData()}
-        >New Quote</button>
-        <a href="twitter.com/intent/tweet">
-          <button id="tweet-quote"> New Tweet</button>
-        </a>
+    <div
+      className="App"
+      style={{
+        backgroundColor: bgColor,
+      }}
+    >
+      <div id="quote-box" style={{ color: qbInsetColor }}>
+        <div id="text-box">
+          <div id="text">{quote}</div>
+          <div id="author">- {author} </div>
+        </div>
+        <div id="btn-box">
+          <a href="twitter.com/intent/tweet">
+              <button
+                id="tweet-quote"
+                style={{ backgroundColor: qbInsetColor }}
+              >
+                New Tweet
+              </button>
+          </a>
+          <button
+            id="new-quote"
+            style={{ backgroundColor: qbInsetColor }}
+            onClick={() => {
+              getRandomQuoteData()
+              getRandomColorScheme()
+            }}
+          >
+            New Quote
+          </button>
+        </div>
       </div>
     </div>
   );
