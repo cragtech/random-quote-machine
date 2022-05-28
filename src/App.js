@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import './App.css';
-
+import { Quote, Twitter } from 'react-bootstrap-icons';
 function App() {
   const [quote, setQuote] = useState('');
   const [author, setAuthor] = useState('');
@@ -68,10 +68,15 @@ function App() {
         backgroundColor: bgColor,
       }}
     >
+      <div id="app-title">Random Quote Machine</div>
       <div id="quote-box" style={{ color: qbInsetColor }}>
-        <div id="text-box">
-          <div id="text">{quote}</div>
-          <div id="author">- {author} </div>
+        <div id="text-author-box">
+          <span id="text-box">
+            <Quote className="first-quote-icon" size={40}/>
+            <div id="text">{quote}</div>
+            <Quote className="last-quote-icon" size={40}/>
+            </span>
+        <div id="author">- {author} </div>
         </div>
         <div id="btn-box">
           <a href="twitter.com/intent/tweet">
@@ -79,7 +84,7 @@ function App() {
                 id="tweet-quote"
                 style={{ backgroundColor: qbInsetColor }}
               >
-                New Tweet
+                <Twitter className="twitter-icon" size={30}/>
               </button>
           </a>
           <button

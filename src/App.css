@@ -7,37 +7,75 @@
   justify-content: center;
   align-items: center
 }
+#app-title {
+  font-family: 'Crete Round', serif;
+  font-family: 'Oi', cursive;
+  color: white;
+  font-size: 40px;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
 #quote-box {
-  border: solid 15px #000000;
-  background-color: white;
+  border: solid 2px #000000;
+  border-radius: 5px;
+  background-color: #F6E7BB;
   width: 50%;
   height: 50%;
   padding: 25px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
-#text-box {
+#text-author-box {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+#text-box {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-end;
+}
 #text {
-  border: solid 2px blue;
+  /* -webkit-text-stroke: .15px black; */
+  font-family: 'Crete Round', serif;
+  font-size: 15px;
 }
 #author {
-  border: solid 2px green;
   align-self: flex-end;
+  font-family: 'Crete Round', serif;
+  font-size: 15px;
+  margin-top: 10px;
 }
 #btn-box {
+  align-items: flex-end;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 #new-quote {
-  color: white;
+  color: #F6E7BB;
   background: purple;
+  font-family: 'Crete Round', serif;
+  font-size: 20px;
+  border-radius: 5px;
 }
 #tweet-quote {
-  border: solid 2px orange;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.first-quote-icon {
+  transform: scaleY(-1);
+  justify-content: flex-start;
+}
+.last-quote-icon {
+  transform: scaleX(-1) scaleY(-1);
+  align-self: flex-end;
+
+}
+.twitter-icon {
+  color: white;
 }
