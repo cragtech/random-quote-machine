@@ -52,8 +52,14 @@ function App() {
     ];
 
     let randomNum = Math.floor(Math.random() * colorArr.length);
-    setBgColor(colorArr[randomNum][0]);
-    setQbInsetColor(colorArr[randomNum][1])
+
+    if (bgColor === colorArr[randomNum][0]) {
+      getRandomColorScheme();
+    } else {
+      setBgColor(colorArr[randomNum][0]);
+      setQbInsetColor(colorArr[randomNum][1]);
+    }
+
   }
 
   useEffect(()=> {
