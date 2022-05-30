@@ -59,7 +59,6 @@ function App() {
       setBgColor(colorArr[randomNum][0]);
       setQbInsetColor(colorArr[randomNum][1]);
     }
-
   }
 
   useEffect(()=> {
@@ -77,12 +76,8 @@ function App() {
       <div id="app-title">Random Quote Machine</div>
       <div id="quote-box" style={{ color: qbInsetColor }}>
         <div id="text-author-box">
-          <span id="text-box">
-            <Quote className="first-quote-icon" size={40}/>
-            <div id="text">{quote}</div>
-            <Quote className="last-quote-icon" size={40}/>
-            </span>
-        <div id="author">- {author} </div>
+          <div id="text">{quote}</div>
+          <div id="author">- {author} </div>
         </div>
         <div id="btn-box">
           <a href="twitter.com/intent/tweet">

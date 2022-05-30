@@ -30,15 +30,21 @@
   flex-direction: column;
   align-items: center;
 }
-#text-box {
-  display: flex;
-  flex-direction: row;
-  align-content: flex-end;
-}
 #text {
-  /* -webkit-text-stroke: .15px black; */
   font-family: 'Crete Round', serif;
   font-size: 15px;
+}
+#text::before {
+  content: open-quote;
+  font-family: 'BIZ UDGothic', sans-serif;
+  font-size: 45px;
+  vertical-align: middle;
+}
+#text::after {
+  content: close-quote;
+  font-family: 'BIZ UDGothic', sans-serif;
+  font-size: 45px;
+  vertical-align: middle;
 }
 #author {
   align-self: flex-end;
@@ -66,15 +72,6 @@
   justify-content: center;
   align-items: center;
   padding: 5px;
-}
-.first-quote-icon {
-  transform: scaleY(-1);
-  justify-content: flex-start;
-}
-.last-quote-icon {
-  transform: scaleX(-1) scaleY(-1);
-  align-self: flex-end;
-
 }
 .twitter-icon {
   color: white;
