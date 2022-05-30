@@ -8,14 +8,15 @@ function App() {
   const [error, setError] = useState('');
   const [status, setStatus] = useState('');
   const [statusText, setStatusText] = useState('');
-  const [bgColor, setBgColor] = useState('');
-  const [qbInsetColor, setQbInsetColor] = useState('');
+  const [bgColorLight, setBgColorLight] = useState('');
+  const [bgColorMid, setBgColorMid] = useState('')
+  const [bgColorDark, setBgColorDark] = useState('');
+  const [degree, setDegree] = useState(0);
 
   const getRandomQuoteData = () => {
     fetch('https://api.quotable.io/random')
       .then(res => {
         if (!res.ok) {
-          //console.log(res)
           setStatus(res.status.toString());
           setStatusText(res.statusText.toString());
           throw Error('fetching reponse FAILED')
@@ -41,40 +42,49 @@ function App() {
 
   const getRandomColorScheme = () => {
     const colorArr = [
-      ['#F984EF', '#CA2C91'],
-      ['#C636FF', '#720B97'],
-      ['#177BD2', '#000073'],
-      ['#A62C2B', '#FF0000'],
-      ['#B8D53D', '#0D5B11'],
-      ['#FF9D00', '#FF5E01'],
-      ['#FEFE33', '#FFBB00'],
-      ['#A9FBA3', '#48BF92'],
+      //Color range: LIGHT to DARK
+      ['#F7A9D7', '#F38BC8', '#E73399'], //PINK
+      ['#DDD0FE', '#B77EDD', '#724996'], //PURPLE
+      ['#FFD5C2', '#F5635B', '#F11114'], //RED
+      ['#B8D53D', '#429b46','#0D5B11'], //GREEN
+      ['#99F4FF', '#5BCBF7','#2186D1'], //LIGHT BLUE
+      ['#FFA800', '#EC7620', '#EC4C01'], //ORANGE
+      ['#FFF17D', '#FFED1C', '#FF7000'], //YELLOW
+      ['#DCF9C6', '#88D498', '#155F4B'], //SEAWEED
+      ['#BBDFFA', '#6987D5', '#1727AE'], //BLUE
     ];
 
     let randomNum = Math.floor(Math.random() * colorArr.length);
 
-    if (bgColor === colorArr[randomNum][0]) {
+    if (bgColorLight === colorArr[randomNum][0]) {
       getRandomColorScheme();
     } else {
-      setBgColor(colorArr[randomNum][0]);
-      setQbInsetColor(colorArr[randomNum][1]);
+      setBgColorLight(colorArr[randomNum][0]);
+      setBgColorMid(colorArr[randomNum][1])
+      setBgColorDark(colorArr[randomNum][2]);
     }
+  }
+
+  const getRandomDegree = () => {
+    let randomDegree = Math.floor(Math.random() * 360);
+    setDegree(randomDegree);
   }
 
   useEffect(()=> {
     getRandomQuoteData();
     getRandomColorScheme();
+    getRandomDegree();
   }, [])
 
   return (
     <div
       className="App"
       style={{
-        backgroundColor: bgColor,
+        background: `linear-gradient(${degree}deg, ${bgColorLight}, ${bgColorMid}, ${bgColorDark})`
       }}
     >
       <div id="app-title">Random Quote Machine</div>
-      <div id="quote-box" style={{ color: qbInsetColor }}>
+      <div id="quote-box" style={{ color: bgColorDark }}>
         <div id="text-author-box">
           <div id="text">{quote}</div>
           <div id="author">- {author} </div>
@@ -83,17 +93,18 @@ function App() {
           <a href="twitter.com/intent/tweet">
               <button
                 id="tweet-quote"
-                style={{ backgroundColor: qbInsetColor }}
+                style={{ backgroundColor: bgColorDark }}
               >
                 <Twitter className="twitter-icon" size={30}/>
               </button>
           </a>
           <button
             id="new-quote"
-            style={{ backgroundColor: qbInsetColor }}
+            style={{ backgroundColor: bgColorDark }}
             onClick={() => {
-              getRandomQuoteData()
-              getRandomColorScheme()
+              getRandomQuoteData();
+              getRandomColorScheme();
+              getRandomDegree();
             }}
           >
             New Quote
