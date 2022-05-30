@@ -13,6 +13,7 @@ function App() {
   const [bgColorMid, setBgColorMid] = useState('')
   const [bgColorDark, setBgColorDark] = useState('');
   const [degree, setDegree] = useState(0);
+  const [twitterLink, setTwitterLink] = useState('')
 
   const getRandomQuoteData = () => {
     fetch('https://api.quotable.io/random')
@@ -76,10 +77,15 @@ function App() {
     setDegree(randomDegree);
   }
 
+  const updateTwitterLink = () => {
+    setTwitterLink(`https://twitter.com/intent/tweet?text= "${quote}" By: ${author} &hashtags=crag_quote_machine`)
+  }
+
   useEffect(()=> {
     getRandomQuoteData();
     getRandomColorScheme();
     getRandomDegree();
+    updateTwitterLink();
   }, [])
 
   return (
@@ -99,13 +105,15 @@ function App() {
           </div>
         }
         <div id="btn-box">
-          <a href="twitter.com/intent/tweet">
-              <button
-                id="tweet-quote"
-                style={{ backgroundColor: bgColorDark }}
-              >
-                <Twitter className="twitter-icon" size={30}/>
-              </button>
+          <a
+            id="tweet-quote"
+            href={twitterLink} target="_blank"
+            target="_blank"
+            style={{ backgroundColor: bgColorDark }}>
+              <Twitter
+                className="twitter-icon"
+                size={30}
+              />
           </a>
           <button
             id="new-quote"
@@ -115,6 +123,7 @@ function App() {
               getRandomColorScheme();
               getRandomDegree();
               setLoading(true);
+              updateTwitterLink();
             }}
           >
             New Quote
