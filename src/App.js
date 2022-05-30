@@ -6,6 +6,7 @@ function App() {
   const [quote, setQuote] = useState('');
   const [author, setAuthor] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState('');
   const [statusText, setStatusText] = useState('');
   const [bgColorLight, setBgColorLight] = useState('');
@@ -38,6 +39,11 @@ function App() {
         setQuote(status);
         setAuthor(statusText);
       })
+      .finally(() => {
+        setLoading(false);
+      }
+
+      )
   }
 
   const getRandomColorScheme = () => {
@@ -84,11 +90,14 @@ function App() {
       }}
     >
       <div id="app-title">Random Quote Machine</div>
+
       <div id="quote-box" style={{ color: bgColorDark }}>
-        <div id="text-author-box">
-          <div id="text">{quote}</div>
-          <div id="author">- {author} </div>
-        </div>
+        { loading ? <div id="loading-quote-text">Loading Quote...</div> :
+          <div id="text-author-box">
+            <div id="text">{quote}</div>
+            <div id="author">- {author}</div>
+          </div>
+        }
         <div id="btn-box">
           <a href="twitter.com/intent/tweet">
               <button
@@ -105,6 +114,7 @@ function App() {
               getRandomQuoteData();
               getRandomColorScheme();
               getRandomDegree();
+              setLoading(true);
             }}
           >
             New Quote
