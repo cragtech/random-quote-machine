@@ -2,49 +2,26 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import './App.css';
 import { Quote, Twitter } from 'react-bootstrap-icons';
+import quotes from './quotes.json';
+
 function App() {
   const [quote, setQuote] = useState('');
   const [author, setAuthor] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState('');
   const [statusText, setStatusText] = useState('');
   const [bgColorLight, setBgColorLight] = useState('');
   const [bgColorMid, setBgColorMid] = useState('')
   const [bgColorDark, setBgColorDark] = useState('');
   const [degree, setDegree] = useState(0);
-  const [twitterLink, setTwitterLink] = useState('')
+  const [twitterLink, setTwitterLink] = useState('');
 
-  const getRandomQuoteData = () => {
-    fetch('https://api.quotable.io/random')
-      .then(res => {
-        if (!res.ok) {
-          setStatus(res.status.toString());
-          setStatusText(res.statusText.toString());
-          throw Error('fetching reponse FAILED')
-        }
-        else {
-          return res.json()
-        }
-      })
-      .then(
-        quoteObj => {
-          setQuote(quoteObj['content']);
-          setAuthor(quoteObj['author']);
-          setError('');
-          setStatus('');
-          setStatusText('');
-      })
-      .catch(error => {
-        console.log(error.message);
-        setQuote(status);
-        setAuthor(statusText);
-      })
-      .finally(() => {
-        setLoading(false);
-      }
+  const getRandomQuote = () => {
+    const randomQuoteNum = Math.floor(Math.random() * 110);
+    setAuthor(quotes[randomQuoteNum]['author']);
+    setQuote(quotes[randomQuoteNum]['quote']);
+    console.log("Rando Quote", quotes[0]['quote']);
 
-      )
   }
 
   const getRandomColorScheme = () => {
@@ -82,7 +59,7 @@ function App() {
   }
 
   useEffect(()=> {
-    getRandomQuoteData();
+    getRandomQuote();
     getRandomColorScheme();
     getRandomDegree();
     updateTwitterLink();
@@ -98,7 +75,6 @@ function App() {
       <div id="app-title">Random Quote Machine</div>
 
       <div id="quote-box" style={{ color: bgColorDark }}>
-        { loading ? <div id="loading-quote-text">Loading Quote...</div> :
           <div id="text-author-box">
             <div id="text">{quote}</div>
             <div id="author">- {author}</div>
@@ -119,10 +95,9 @@ function App() {
             id="new-quote"
             style={{ backgroundColor: bgColorDark }}
             onClick={() => {
-              getRandomQuoteData();
+              getRandomQuote();
               getRandomColorScheme();
               getRandomDegree();
-              setLoading(true);
               updateTwitterLink();
             }}
           >
