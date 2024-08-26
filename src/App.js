@@ -79,7 +79,6 @@ function App() {
             <div id="text">{quote}</div>
             <div id="author">- {author}</div>
           </div>
-        }
         <div id="btn-box">
           <a
             id="tweet-quote"
